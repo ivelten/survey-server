@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { createConnection } from 'typeorm'
-import { usersRouter } from './users/users.router'
+import { usersRouter } from './users/router'
 
 dotenv.config();
 

@@ -14,4 +14,12 @@ interface CreateUserResponseModel {
     email: string
 }
 
-export { CreateUserRequestModel, CreateUserResponseModel }
+interface GetUserResponseModel {
+    id: number
+    firstName: string
+    lastName: string
+    userName: string
+    email: string
+}
+
+export { CreateUserRequestModel, CreateUserResponseModel, GetUserResponseModel }
