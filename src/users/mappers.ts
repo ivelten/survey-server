@@ -1,4 +1,4 @@
-import { CreateUserRequestModel, CreateUserResponseModel, GetUserResponseModel } from './models'
+import { CreateUserRequestModel, ICreateUserResponseModel, IGetUserResponseModel } from './models'
 import { User } from '../entity/user'
 
 export const mapCreateUserRequestToUser = async (
@@ -14,7 +14,7 @@ export const mapCreateUserRequestToUser = async (
         return user
 }
 
-export const mapUserToCreateUserResponse = async (user: User): Promise<CreateUserResponseModel> => {
+export const mapUserToCreateUserResponse = async (user: User): Promise<ICreateUserResponseModel> => {
     return {
         id: user.id,
         email: user.email,
@@ -25,7 +25,7 @@ export const mapUserToCreateUserResponse = async (user: User): Promise<CreateUse
     }
 }
 
-export const mapUserToGetUserResponse = async (user: User): Promise<GetUserResponseModel> => {
+export const mapUserToGetUserResponse = async (user: User): Promise<IGetUserResponseModel> => {
     return {
         id: user.id,
         email: user.email,

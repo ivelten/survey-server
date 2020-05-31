@@ -1,21 +1,26 @@
-import { CreateUserRequestModel, CreateUserResponseModel, GetUserResponseModel } from './models'
+import { ICreateUserRequestModel, ICreateUserResponseModel, IGetUserResponseModel } from './models'
 import { User } from '../entity/user'
+import { ValidationError } from 'class-validator'
+import { makeResponseModel, ResponseModel } from '../models'
 
 export const create = async (
-    request : CreateUserRequestModel,
+    request : ICreateUserRequestModel,
+    validateRequest: (request: ICreateUserRequestModel) => Promise<ValidationError[]>,
     hashPassword: (password: string) => Promise<string>,
-    mapRequestToUser: (req: CreateUserRequestModel, hashPassword: (password: string) => Promise<string>) => Promise<User>,
+    mapRequestToUser: (req: ICreateUserRequestModel, hashPassword: (password: string) => Promise<string>) => Promise<User>,
     saveUser: (user: User) => Promise<User>,
-    mapUserToResponse: (user: User) => Promise<CreateUserResponseModel>): Promise<CreateUserResponseModel> => {
-        var user = await mapRequestToUser(request, hashPassword)
-        user = await saveUser(user)
-        return await mapUserToResponse(user)
+    mapUserToResponse: (user: User) => Promise<ICreateUserResponseModel>): Promise<ResponseModel<ICreateUserResponseModel>> => {
+        return makeResponseModel(await validateRequest(request), async () => {
+            var user = await mapRequestToUser(request, hashPassword)
+            user = await saveUser(user)
+            return await mapUserToResponse(user)
+        })
 }
 
 export const getAll = async (
     page: number,
     getUsers: (page: number) => Promise<User[]>,
-    mapUserToResponse: (user: User) => Promise<GetUserResponseModel>): Promise<GetUserResponseModel[]> => {
+    mapUserToResponse: (user: User) => Promise<IGetUserResponseModel>): Promise<IGetUserResponseModel[]> => {
         const users = await getUsers(page)
         const response = users.map(async (user) => await mapUserToResponse(user))
         return Promise.all(response)
@@ -24,7 +29,7 @@ export const getAll = async (
 export const get = async (
     id: number,
     getUser: (id: number) => Promise<User>,
-    mapUserToResponse: (user: User) => Promise<GetUserResponseModel>): Promise<GetUserResponseModel> => {
+    mapUserToResponse: (user: User) => Promise<IGetUserResponseModel>): Promise<IGetUserResponseModel> => {
         const user = await getUser(id)
         return await mapUserToResponse(user)
 }
