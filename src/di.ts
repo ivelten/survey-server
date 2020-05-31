@@ -1,13 +1,12 @@
 import { User } from './entity/user'
-import { getConnection } from 'typeorm'
+import { getConnection, Connection, InsertResult } from 'typeorm'
 import bcrypt from 'bcrypt'
-
-const saltRounds = process.env.NODE_ENV == 'production' ? 12 : 0
-const pageSize = 50
+import { PAGE_SIZE, SALT_ROUNDS } from './env'
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
 
 const skip = (page: number): number => {
     if (page) {
-        return (page - 1) * pageSize
+        return (page - 1) * PAGE_SIZE
     } else {
         return 0;
     }
@@ -18,9 +17,21 @@ export const saveUser = async (user: User): Promise<User> => {
 }
 
 export const getUsers = async (page: number): Promise<User[]> => {
-    return await getConnection().getRepository(User).find({ take: pageSize, skip: skip(page) })
+    return await getConnection().getRepository(User).find({ take: PAGE_SIZE, skip: skip(page) })
 }
 
 export const hashPassword = async (password: string): Promise<string> => {
-    return await bcrypt.hash(password, saltRounds)
+    return await bcrypt.hash(password, SALT_ROUNDS)
+}
+
+export const insertInto = async <T>(
+    connection: Connection,
+    entity: (new () => T),
+    values: QueryDeepPartialEntity<T> | QueryDeepPartialEntity<T>[]): Promise<InsertResult> => {
+        return await connection
+            .createQueryBuilder()
+            .insert()
+            .into(entity)
+            .values(values)
+            .execute()
 }

@@ -1,17 +1,18 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, Unique, ManyToOne, JoinColumn } from 'typeorm'
+import { Role } from './role'
 
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
     id: number
     
-    @Column({ length: 50 })
+    @Column({ length: 50, name: 'first_name' })
     firstName: string
 
-    @Column({ length: 50 })
+    @Column({ length: 50, name: 'last_name' })
     lastName: string
     
-    @Column({ length: 100 })
+    @Column({ length: 100, name: 'user_name' })
     @Unique(['userName'])
     userName: string
 
@@ -19,6 +20,13 @@ export class User {
     @Unique(['email'])
     email: string
     
-    @Column({ length: 60 })
+    @Column({ length: 60, name: 'password_hash' })
     passwordHash: string
+
+    @Column({ name: 'role_id' })
+    roleId: number
+
+    @ManyToOne(_ => Role, r => r.users)
+    @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+    role: Role
 }
