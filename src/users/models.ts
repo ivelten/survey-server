@@ -14,7 +14,7 @@ interface ICreateUserRequestModel {
     isActive: boolean
 }
 
-interface ICreateUserResponseModel {
+interface IUserResponseModel {
     id: number
     firstName: string
     lastName: string
@@ -27,20 +27,7 @@ interface ICreateUserResponseModel {
     isActive: boolean
 }
 
-interface IGetUserResponseModel {
-    id: number
-    firstName: string
-    lastName: string
-    userName: string
-    roleId: number
-    birthDate: Date
-    height: number
-    weigth: number
-    email: string
-    isActive: boolean
-}
-
-export class CreateUserRequestModel implements ICreateUserRequestModel {
+class CreateUserRequestModel implements ICreateUserRequestModel {
     constructor(model: ICreateUserRequestModel) {
         if (model) {
             this.firstName = model.firstName
@@ -104,4 +91,4 @@ export class CreateUserRequestModel implements ICreateUserRequestModel {
     isActive: boolean
 }
 
-export { ICreateUserRequestModel, ICreateUserResponseModel, IGetUserResponseModel }
+export { ICreateUserRequestModel, IUserResponseModel, CreateUserRequestModel }

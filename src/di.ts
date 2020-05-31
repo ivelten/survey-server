@@ -3,6 +3,7 @@ import { getConnection, Connection, InsertResult } from 'typeorm'
 import bcrypt from 'bcrypt'
 import { PAGE_SIZE, SALT_ROUNDS } from './env'
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
+import { Form } from './entity/form'
 
 const skip = (page: number): number => {
     if (page) {
@@ -31,6 +32,10 @@ export const hashPassword = async (password: string): Promise<string> => {
 export const authorizeUser = async (userName: string, password: string): Promise<User> => {
     const user = await getConnection().getRepository(User).findOne({ where: { userName: userName, isActive: true } })
     if (user && await bcrypt.compare(password, user.passwordHash)) return user
+}
+
+export const getForms = async (page: number): Promise<Form[]> => {
+    return await getConnection().getRepository(Form).find({ take: PAGE_SIZE, skip: skip(page), relations: [ "questions", "questions.choices", "questions.choices.recommendations" ] })
 }
 
 export const insertInto = async <T>(

@@ -1,4 +1,4 @@
-import { ICreateUserRequestModel, ICreateUserResponseModel, IGetUserResponseModel } from './models'
+import { ICreateUserRequestModel, IUserResponseModel } from './models'
 import { User } from '../entity/user'
 import { ValidationError } from 'class-validator'
 import { makeResponseModel, ResponseModel } from '../models'
@@ -9,7 +9,7 @@ export const create = async (
     hashPassword: (password: string) => Promise<string>,
     mapRequestToUser: (req: ICreateUserRequestModel, hashPassword: (password: string) => Promise<string>) => Promise<User>,
     saveUser: (user: User) => Promise<User>,
-    mapUserToResponse: (user: User) => Promise<ICreateUserResponseModel>): Promise<ResponseModel<ICreateUserResponseModel>> => {
+    mapUserToResponse: (user: User) => Promise<IUserResponseModel>): Promise<ResponseModel<IUserResponseModel>> => {
         return makeResponseModel(await validateRequest(request), async () => {
             var user = await mapRequestToUser(request, hashPassword)
             user = await saveUser(user)
@@ -20,7 +20,7 @@ export const create = async (
 export const getAll = async (
     page: number,
     getUsers: (page: number) => Promise<User[]>,
-    mapUserToResponse: (user: User) => Promise<IGetUserResponseModel>): Promise<IGetUserResponseModel[]> => {
+    mapUserToResponse: (user: User) => Promise<IUserResponseModel>): Promise<IUserResponseModel[]> => {
         const users = await getUsers(page)
         const response = users.map(async (user) => await mapUserToResponse(user))
         return Promise.all(response)
@@ -29,7 +29,7 @@ export const getAll = async (
 export const get = async (
     id: number,
     getUser: (id: number) => Promise<User>,
-    mapUserToResponse: (user: User) => Promise<IGetUserResponseModel>): Promise<IGetUserResponseModel> => {
+    mapUserToResponse: (user: User) => Promise<IUserResponseModel>): Promise<IUserResponseModel> => {
         const user = await getUser(id)
         return await mapUserToResponse(user)
 }
