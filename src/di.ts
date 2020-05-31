@@ -28,6 +28,11 @@ export const hashPassword = async (password: string): Promise<string> => {
     return await bcrypt.hash(password, SALT_ROUNDS)
 }
 
+export const authorizeUser = async (userName: string, password: string): Promise<User> => {
+    const user = await getConnection().getRepository(User).findOne({ where: { userName: userName, isActive: true } })
+    if (user && await bcrypt.compare(password, user.passwordHash)) return user
+}
+
 export const insertInto = async <T>(
     connection: Connection,
     entity: (new () => T),

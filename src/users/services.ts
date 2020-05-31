@@ -33,3 +33,13 @@ export const get = async (
         const user = await getUser(id)
         return await mapUserToResponse(user)
 }
+
+export const authorize = async (
+    userName: string,
+    password: string,
+    roleId: number,
+    authorizeUser: (userName: string, password: string) => Promise<User>): Promise<boolean> => {
+        const user = await authorizeUser(userName, password)
+        if (user && user.roleId <= roleId) return true;
+        else return false;
+}

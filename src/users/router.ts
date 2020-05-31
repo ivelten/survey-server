@@ -4,6 +4,7 @@ import { mapCreateUserRequestToUser, mapUserToCreateUserResponse, mapUserToGetUs
 import { hashPassword, saveUser, getUsers, getUser } from '../di'
 import { validateCreateUserRequestModel } from './validators'
 import { sendResponseModel } from '../models'
+import { isAnalystAuthorized, isAdminAuthorized } from '../auth'
 
 const usersRouter = express.Router()
 
@@ -16,7 +17,7 @@ const processRequest = async (res: Response, processor: () => Promise<void>) => 
     }
 }
 
-usersRouter.get('/', async (req: Request, res: Response) => {
+usersRouter.get('/', isAnalystAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
         const page = parseInt(req.query.page as string, 10)
         const response = await getAll(page, getUsers, mapUserToGetUserResponse)
@@ -24,7 +25,7 @@ usersRouter.get('/', async (req: Request, res: Response) => {
     })
 })
 
-usersRouter.get('/:id', async (req: Request, res: Response) => {
+usersRouter.get('/:id', isAnalystAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
         const id = parseInt(req.params.id as string, 10)
         const response = await get(id, getUser, mapUserToGetUserResponse)
@@ -32,7 +33,7 @@ usersRouter.get('/:id', async (req: Request, res: Response) => {
     })
 })
 
-usersRouter.post('/', async (req: Request, res: Response) => {
+usersRouter.post('/', isAdminAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
         console.log(req.body)
         const response = await create(req.body, validateCreateUserRequestModel, hashPassword, mapCreateUserRequestToUser, saveUser, mapUserToCreateUserResponse)
