@@ -20,6 +20,10 @@ export const getUsers = async (page: number): Promise<User[]> => {
     return await getConnection().getRepository(User).find({ take: PAGE_SIZE, skip: skip(page) })
 }
 
+export const getUser = async (id: number): Promise<User> => {
+    return await getConnection().getRepository(User).findOne(id)
+}
+
 export const hashPassword = async (password: string): Promise<string> => {
     return await bcrypt.hash(password, SALT_ROUNDS)
 }

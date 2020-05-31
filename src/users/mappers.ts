@@ -10,6 +10,7 @@ export const mapCreateUserRequestToUser = async (
         user.email = request.email
         user.passwordHash = await hashPassword(request.password)
         user.userName = request.userName
+        user.roleId = request.roleId
         return user
 }
 
@@ -19,7 +20,8 @@ export const mapUserToCreateUserResponse = async (user: User): Promise<CreateUse
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        userName: user.userName
+        userName: user.userName,
+        roleId: user.roleId
     }
 }
 
@@ -29,6 +31,7 @@ export const mapUserToGetUserResponse = async (user: User): Promise<GetUserRespo
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        userName: user.userName
+        userName: user.userName,
+        roleId: user.roleId
     }
 }

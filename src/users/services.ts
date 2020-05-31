@@ -20,3 +20,11 @@ export const getAll = async (
         const response = users.map(async (user) => await mapUserToResponse(user))
         return Promise.all(response)
 }
+
+export const get = async (
+    id: number,
+    getUser: (id: number) => Promise<User>,
+    mapUserToResponse: (user: User) => Promise<GetUserResponseModel>): Promise<GetUserResponseModel> => {
+        const user = await getUser(id)
+        return await mapUserToResponse(user)
+}

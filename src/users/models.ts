@@ -3,6 +3,7 @@ interface CreateUserRequestModel {
     lastName: string
     userName: string
     email: string
+    roleId: number
     password: string
 }
 
@@ -11,6 +12,7 @@ interface CreateUserResponseModel {
     firstName: string
     lastName: string
     userName: string
+    roleId: number
     email: string
 }
 
@@ -19,6 +21,7 @@ interface GetUserResponseModel {
     firstName: string
     lastName: string
     userName: string
+    roleId: number
     email: string
 }
 
