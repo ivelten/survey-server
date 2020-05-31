@@ -1,5 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique, ManyToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, Unique, ManyToOne, JoinColumn, OneToMany } from 'typeorm'
 import { Role } from './role'
+import { Form } from './form'
+import { Answer } from './answer'
 
 @Entity()
 export class User {
@@ -41,4 +43,10 @@ export class User {
     @ManyToOne(_ => Role, r => r.users)
     @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
     role: Role
+
+    @OneToMany(_ => Form, f => f.user)
+    forms: Form[]
+
+    @OneToMany(_ => Answer, a => a.user)
+    answers: Answer[]
 }
