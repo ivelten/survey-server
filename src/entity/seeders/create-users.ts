@@ -1,5 +1,5 @@
 import { Factory, Seeder } from 'typeorm-seeding'
-import { Connection, InsertResult } from 'typeorm'
+import { Connection } from 'typeorm'
 import bcrypt from 'bcrypt'
 import { SALT_ROUNDS } from '../../env'
 import { User } from '../user'
@@ -9,9 +9,9 @@ export class CreateUsers implements Seeder {
     async run(_: Factory, connection: Connection): Promise<any> {
         const passwordHash = await bcrypt.hash('password', SALT_ROUNDS)
         await insertInto(connection, User, [
-            { firstName: 'Ismael', lastName: 'Velten', userName: 'ivelten', email: 'ismaelcarlosvelten@gmail.com', passwordHash, roleId: 1 },
-            { firstName: 'João', lastName: 'Silva', userName: 'jsilva', email: 'joaosilva@gmail.com', passwordHash, roleId: 2 },
-            { firstName: 'Maria', lastName: 'Silva', userName: 'msilva', email: 'mariasilva@gmail.com', passwordHash, roleId: 3 }
+            { firstName: 'José', lastName: 'Silva', userName: 'jose.silva', email: 'jose.silva@gmail.com', passwordHash, roleId: 1, birthDate: new Date(1988, 4, 2), isActive: true, weigth: 80, height: 170 },
+            { firstName: 'João', lastName: 'Silva', userName: 'joao.silva', email: 'joao.silva@gmail.com', passwordHash, roleId: 2, birthDate: new Date(1991, 10, 19), isActive: true, weigth: 74, height: 168 },
+            { firstName: 'Maria', lastName: 'Silva', userName: 'maria.silva', email: 'maria.silva@gmail.com', passwordHash, roleId: 3, birthDate: new Date(1980, 3, 5), isActive: true, weigth: 96, height: 190 }
         ])
     }
 }

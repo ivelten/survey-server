@@ -23,6 +23,18 @@ export class User {
     @Column({ length: 60, name: 'password_hash' })
     passwordHash: string
 
+    @Column({ type: 'date', name: 'birth_date' })
+    birthDate: Date
+
+    @Column({ type: 'smallint' })
+    height: number
+
+    @Column({ type: 'smallint' })
+    weigth: number
+
+    @Column({ name: 'is_active' })
+    isActive: boolean
+
     @Column({ name: 'role_id' })
     roleId: number
 

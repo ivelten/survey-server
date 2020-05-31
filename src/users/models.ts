@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength, IsEmail, IsInt } from 'class-validator'
+import { IsNotEmpty, IsString, MaxLength, IsEmail, IsInt, IsISO8601, Min, IsBoolean } from 'class-validator'
 import { IsUserNameAlreadyInUse, IsUserEmailAlreadyInUse } from './validation'
 
 interface ICreateUserRequestModel {
@@ -7,7 +7,11 @@ interface ICreateUserRequestModel {
     userName: string
     email: string
     roleId: number
+    birthDate: Date
+    height: number
+    weigth: number
     password: string
+    isActive: boolean
 }
 
 interface ICreateUserResponseModel {
@@ -16,7 +20,11 @@ interface ICreateUserResponseModel {
     lastName: string
     userName: string
     roleId: number
+    birthDate: Date
+    height: number
+    weigth: number
     email: string
+    isActive: boolean
 }
 
 interface IGetUserResponseModel {
@@ -25,7 +33,11 @@ interface IGetUserResponseModel {
     lastName: string
     userName: string
     roleId: number
+    birthDate: Date
+    height: number
+    weigth: number
     email: string
+    isActive: boolean
 }
 
 export class CreateUserRequestModel implements ICreateUserRequestModel {
@@ -37,6 +49,10 @@ export class CreateUserRequestModel implements ICreateUserRequestModel {
             this.email = model.email
             this.roleId = model.roleId
             this.password = model.password
+            this.birthDate = model.birthDate
+            this.height = model.height
+            this.weigth = model.weigth
+            this.isActive = model.isActive
         }
     }
 
@@ -62,12 +78,30 @@ export class CreateUserRequestModel implements ICreateUserRequestModel {
     email: string
 
     @IsNotEmpty()
+    @IsISO8601({ strict: true })
+    birthDate: Date
+
+    @IsNotEmpty()
+    @IsInt()
+    @Min(0)
+    height: number
+
+    @IsNotEmpty()
+    @IsInt()
+    @Min(0)
+    weigth: number
+
+    @IsNotEmpty()
     @IsString()
     password: string
 
     @IsNotEmpty()
     @IsInt()
     roleId: number
+
+    @IsNotEmpty()
+    @IsBoolean()
+    isActive: boolean
 }
 
 export { ICreateUserRequestModel, ICreateUserResponseModel, IGetUserResponseModel }
