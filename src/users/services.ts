@@ -22,15 +22,15 @@ export const getAll = async (
     getUsers: (page: number) => Promise<User[]>,
     mapUserToResponse: (user: User) => Promise<IUserResponseModel>): Promise<IUserResponseModel[]> => {
         const users = await getUsers(page)
-        const response = users.map(async (user) => await mapUserToResponse(user))
+        const response = users?.map(async (user) => await mapUserToResponse(user))
         return Promise.all(response)
 }
 
 export const get = async (
-    id: number,
-    getUser: (id: number) => Promise<User>,
+    userName: string,
+    getUser: (userName: string) => Promise<User>,
     mapUserToResponse: (user: User) => Promise<IUserResponseModel>): Promise<IUserResponseModel> => {
-        const user = await getUser(id)
+        const user = await getUser(userName)
         return await mapUserToResponse(user)
 }
 

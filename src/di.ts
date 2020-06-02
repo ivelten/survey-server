@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import { PAGE_SIZE, SALT_ROUNDS } from './env'
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
 import { Form } from './entity/form'
+import { Question } from './entity/question'
 
 const skip = (page: number): number => {
     if (page) {
@@ -21,8 +22,8 @@ export const getUsers = async (page: number): Promise<User[]> => {
     return await getConnection().getRepository(User).find({ take: PAGE_SIZE, skip: skip(page) })
 }
 
-export const getUser = async (id: number): Promise<User> => {
-    return await getConnection().getRepository(User).findOne(id)
+export const getUser = async (userName: string): Promise<User> => {
+    return await getConnection().getRepository(User).findOne({ where: { userName: userName } })
 }
 
 export const hashPassword = async (password: string): Promise<string> => {
@@ -35,7 +36,27 @@ export const authorizeUser = async (userName: string, password: string): Promise
 }
 
 export const getForms = async (page: number): Promise<Form[]> => {
-    return await getConnection().getRepository(Form).find({ take: PAGE_SIZE, skip: skip(page), relations: [ "questions", "questions.choices", "questions.choices.recommendations" ] })
+    return await getConnection().getRepository(Form).find({ take: PAGE_SIZE, skip: skip(page)})
+}
+
+export const getForm = async (id: number): Promise<Form> => {
+    return await getConnection().getRepository(Form).findOne(id)
+}
+
+export const getQuestion = async (id: number): Promise<Question> => {
+    return await getConnection().getRepository(Question).findOne(id, { relations: [ "choices", "choices.recommendations" ] })
+}
+
+export const saveQuestion = async (question: Question): Promise<Question> => {
+    return await getConnection().getRepository(Question).save(question)
+}
+
+export const saveForm = async (form: Form): Promise<Form> => {
+    return await getConnection().getRepository(Form).save(form)
+}
+
+export const getQuestions = async (page: number): Promise<Question[]> => {
+    return await getConnection().getRepository(Question).find({ take: PAGE_SIZE, skip: skip(page), relations: [ "choices", "choices.recommendations" ] })
 }
 
 export const insertInto = async <T>(

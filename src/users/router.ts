@@ -17,19 +17,18 @@ usersRouter.get('/', isAnalystAuthorized, async (req: Request, res: Response) =>
     })
 })
 
-usersRouter.get('/:id', isAnalystAuthorized, async (req: Request, res: Response) => {
+usersRouter.get('/:userName', isAnalystAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
-        const id = parseInt(req.params.id as string, 10)
-        const response = await get(id, getUser, mapUserToUserResponse)
+        const userName = req.params.userName as string
+        const response = await get(userName, getUser, mapUserToUserResponse)
         sendResponseModel(response, res)
     })
 })
 
 usersRouter.post('/', isAdminAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
-        console.log(req.body)
         const response = await create(req.body, validateCreateUserRequestModel, hashPassword, mapCreateUserRequestToUser, saveUser, mapUserToUserResponse)
-        sendResponseModel(response, res)
+        sendResponseModel(response, res, 201)
     })
 })
 

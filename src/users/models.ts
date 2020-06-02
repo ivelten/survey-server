@@ -15,7 +15,6 @@ interface ICreateUserRequestModel {
 }
 
 interface IUserResponseModel {
-    id: number
     firstName: string
     lastName: string
     userName: string

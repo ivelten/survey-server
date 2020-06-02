@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import basicAuth from 'express-basic-auth'
 import { authorizeUser } from './di'
 import { authorize } from './users/services'
@@ -23,3 +24,9 @@ export const isAdminAuthorized = basicAuth({
     authorizer: asyncAuthorizer(ADMIN_ROLE),
     authorizeAsync: true
 })
+
+export const getUserNameFromAuthHeader = (req: Request) => {
+    const authHeader = req.headers.authorization.split(' ')[1]
+    const authHeaderBuffer = Buffer.from(authHeader, 'base64')
+    return authHeaderBuffer.toString().split(':')[0]
+}

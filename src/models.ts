@@ -16,9 +16,10 @@ const makeResponseModel = <T>(validationErrors: ValidationError[], responseFacto
     return responseFactory()
 }
 
-const sendResponseModel = <T>(model: ResponseModel<T>, apiResponse: Response): void => {
+const sendResponseModel = <T>(model: ResponseModel<T>, apiResponse: Response, status?: 200 | 201): void => {
     if (!model) apiResponse.status(404)
     else if (isBadRequest(model)) apiResponse.status(400)
+    else if (status) apiResponse.status(status)
     else apiResponse.status(200)
     
     apiResponse.send(model)
