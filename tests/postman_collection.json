@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "5c9d830a-d057-4967-8079-e10a1aff5e3a",
+		"name": "Survey",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/users/jose.silva",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"users",
+						"jose.silva"
+					]
+				},
+				"description": "Gets a specific user by its user name"
+			},
+			"response": []
+		},
+		{
+			"name": "GET users",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Gets all users"
+			},
+			"response": []
+		},
+		{
+			"name": "POST user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"teste.silva@gmail.com\",\r\n    \"firstName\": \"Teste\",\r\n    \"lastName\": \"Silva\",\r\n    \"userName\": \"teste.silva\",\r\n    \"roleId\": 1,\r\n    \"birthDate\": \"1988-05-02\",\r\n    \"height\": 170,\r\n    \"weigth\": 80,\r\n    \"password\": \"teste\",\r\n    \"isActive\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"users"
+					]
+				},
+				"description": "Creates an user"
+			},
+			"response": []
+		},
+		{
+			"name": "GET forms",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/forms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"forms"
+					]
+				},
+				"description": "Gets all forms"
+			},
+			"response": []
+		},
+		{
+			"name": "GET form",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/forms/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"forms",
+						"1"
+					]
+				},
+				"description": "Gets a specific form"
+			},
+			"response": []
+		},
+		{
+			"name": "GET questions",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/questions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"questions"
+					]
+				},
+				"description": "Gets all questions"
+			},
+			"response": []
+		},
+		{
+			"name": "GET question",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/questions/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"questions",
+						"1"
+					]
+				},
+				"description": "Gets a specific question"
+			},
+			"response": []
+		},
+		{
+			"name": "POST question",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"formId\": 1,\r\n    \"description\": \"Você é fofo?\",\r\n    \"choices\": [\r\n        {\r\n            \"description\": \"No máximo uma vez por dia\",\r\n            \"weight\": 0,\r\n            \"recommendations\": [\r\n                {\r\n                    \"description\": \"Faça mais Apps fofos.\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"description\": \"Entre duas a três vezes\",\r\n            \"weight\": 50,\r\n            \"recommendations\": []\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"description\": \"Mais de três vezes\",\r\n            \"weight\": 100,\r\n            \"recommendations\": []\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/questions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"questions"
+					]
+				},
+				"description": "Creates a question"
+			},
+			"response": []
+		},
+		{
+			"name": "POST form",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "jose.silva",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"version\": 1,\r\n        \"description\": \"Questões de fofura\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/forms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"forms"
+					]
+				},
+				"description": "Cria um formulário"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

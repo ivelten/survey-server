@@ -9,6 +9,7 @@ export const mapCreateFormRequestToForm = async (
     form.creationDate = new Date()
     form.user = user
     form.version = request.version
+    form.description = request.description
     return form
 }
 
@@ -19,7 +20,8 @@ export const mapFormToFormResponse = async (
             id: form.id,
             creationDate: form.creationDate,
             userId: form.userId,
-            version: form.version
+            version: form.version,
+            description: form.description
         }
     }
 }

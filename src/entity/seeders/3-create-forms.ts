@@ -9,7 +9,8 @@ export class CreateForms implements Seeder {
             {
                 id: 1,
                 userId: 1,
-                version: 1
+                version: 1,
+                description: 'Questões de saúde'
             }
         ])
     }

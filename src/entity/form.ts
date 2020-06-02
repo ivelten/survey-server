@@ -13,6 +13,9 @@ export class Form {
     @Column({ type: 'smallint' })
     version: number
 
+    @Column({ length: 100 })
+    description: string
+
     @Column({ name: 'user_id' })
     userId: number
 
