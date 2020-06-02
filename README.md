@@ -8,6 +8,7 @@ Ele levanta um servidor RESTful para atender um aplicativo de questionário Mobi
 1. [Node.js](https://nodejs.org/en/)
 2. [Yarn](https://yarnpkg.com/)
 3. [MySQL](https://www.mysql.com/)
+4. [TypeScript](https://www.typescriptlang.org/)
 
 ## Como executar este projeto
 
