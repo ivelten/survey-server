@@ -1,13 +1,14 @@
 import { User } from './entity/user'
-import { getConnection } from 'typeorm'
+import { getConnection, Connection, InsertResult } from 'typeorm'
 import bcrypt from 'bcrypt'
-
-const saltRounds = process.env.NODE_ENV == 'production' ? 12 : 0
-const pageSize = 50
+import { PAGE_SIZE, SALT_ROUNDS } from './env'
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
+import { Form } from './entity/form'
+import { Question } from './entity/question'
 
 const skip = (page: number): number => {
     if (page) {
-        return (page - 1) * pageSize
+        return (page - 1) * PAGE_SIZE
     } else {
         return 0;
     }
@@ -18,9 +19,54 @@ export const saveUser = async (user: User): Promise<User> => {
 }
 
 export const getUsers = async (page: number): Promise<User[]> => {
-    return await getConnection().getRepository(User).find({ take: pageSize, skip: skip(page) })
+    return await getConnection().getRepository(User).find({ take: PAGE_SIZE, skip: skip(page) })
+}
+
+export const getUser = async (userName: string): Promise<User> => {
+    return await getConnection().getRepository(User).findOne({ where: { userName: userName } })
 }
 
 export const hashPassword = async (password: string): Promise<string> => {
-    return await bcrypt.hash(password, saltRounds)
+    return await bcrypt.hash(password, SALT_ROUNDS)
+}
+
+export const authorizeUser = async (userName: string, password: string): Promise<User> => {
+    const user = await getConnection().getRepository(User).findOne({ where: { userName: userName, isActive: true } })
+    if (user && await bcrypt.compare(password, user.passwordHash)) return user
+}
+
+export const getForms = async (page: number): Promise<Form[]> => {
+    return await getConnection().getRepository(Form).find({ take: PAGE_SIZE, skip: skip(page)})
+}
+
+export const getForm = async (id: number): Promise<Form> => {
+    return await getConnection().getRepository(Form).findOne(id)
+}
+
+export const getQuestion = async (id: number): Promise<Question> => {
+    return await getConnection().getRepository(Question).findOne(id, { relations: [ "choices", "choices.recommendations" ] })
+}
+
+export const saveQuestion = async (question: Question): Promise<Question> => {
+    return await getConnection().getRepository(Question).save(question)
+}
+
+export const saveForm = async (form: Form): Promise<Form> => {
+    return await getConnection().getRepository(Form).save(form)
+}
+
+export const getQuestions = async (page: number): Promise<Question[]> => {
+    return await getConnection().getRepository(Question).find({ take: PAGE_SIZE, skip: skip(page), relations: [ "choices", "choices.recommendations" ] })
+}
+
+export const insertInto = async <T>(
+    connection: Connection,
+    entity: (new () => T),
+    values: QueryDeepPartialEntity<T> | QueryDeepPartialEntity<T>[]): Promise<InsertResult> => {
+        return await connection
+            .createQueryBuilder()
+            .insert()
+            .into(entity)
+            .values(values)
+            .execute()
 }

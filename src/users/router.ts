@@ -1,31 +1,34 @@
 import express, { Request, Response } from 'express'
-import { create, getAll } from './services'
-import { mapCreateUserRequestToUser, mapUserToCreateUserResponse, mapUserToGetUserResponse } from './mappers'
-import { hashPassword, saveUser, getUsers } from '../di'
+import { create, getAll, get } from './services'
+import { mapCreateUserRequestToUser, mapUserToUserResponse } from './mappers'
+import { hashPassword, saveUser, getUsers, getUser } from '../di'
+import { validateCreateUserRequestModel } from './validators'
+import { sendResponseModel } from '../models'
+import { isAnalystAuthorized, isAdminAuthorized } from '../auth'
+import { processRequest } from '../requests'
 
 const usersRouter = express.Router()
 
-const processRequest = async (res: Response, processor: () => Promise<void>) => {
-    try {
-        await processor()
-    } catch (e) {
-        console.log(e)
-        res.status(500).send()
-    }
-}
-
-usersRouter.get('/', async (req: Request, res: Response) => {
+usersRouter.get('/', isAnalystAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
-        const page: number = parseInt(req.query.page as string, 10)
-        const response = await getAll(page, getUsers, mapUserToGetUserResponse)
-        res.status(200).send(response)
+        const page = parseInt(req.query.page as string, 10)
+        const response = await getAll(page, getUsers, mapUserToUserResponse)
+        sendResponseModel(response, res)
     })
 })
 
-usersRouter.post('/', async (req: Request, res: Response) => {
+usersRouter.get('/:userName', isAnalystAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
-        const response = await create(req.body, hashPassword, mapCreateUserRequestToUser, saveUser, mapUserToCreateUserResponse)
-        res.status(201).send(response)
+        const userName = req.params.userName as string
+        const response = await get(userName, getUser, mapUserToUserResponse)
+        sendResponseModel(response, res)
+    })
+})
+
+usersRouter.post('/', isAdminAuthorized, async (req: Request, res: Response) => {
+    processRequest(res, async () => {
+        const response = await create(req.body, validateCreateUserRequestModel, hashPassword, mapCreateUserRequestToUser, saveUser, mapUserToUserResponse)
+        sendResponseModel(response, res, 201)
     })
 })
 
