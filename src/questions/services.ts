@@ -18,11 +18,12 @@ export const create = async (
 
 export const getAll = async (
     page: number,
-    getQuestions: (page: number) => Promise<Question[]>,
+    formId: number,
+    getQuestions: (page: number, formId: number) => Promise<Question[]>,
     mapQuestionToResponse: (question: Question) => Promise<IQuestionResponseModel>): Promise<IQuestionResponseModel[]> => {
-        const questions = await getQuestions(page)
+        const questions = await getQuestions(page, formId)
         const response = questions?.map(async (question) => await mapQuestionToResponse(question))
-        return Promise.all(response)
+        if (response) return await Promise.all(response)
 }
 
 export const get = async (

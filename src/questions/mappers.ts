@@ -27,6 +27,7 @@ export const mapQuestionToQuestionResponse = async (
     if (question) {
         return {
             id: question.id,
+            formId: question.formId,
             description: question.description,
             choices: question.choices?.map(choice => {
                 return {

@@ -24,7 +24,7 @@ export const getAll = async (
     mapFormToResponse: (form: Form) => Promise<IFormResponseModel>): Promise<IFormResponseModel[]> => {
         const forms = await getForms(page)
         const response = forms?.map(async (form) => await mapFormToResponse(form))
-        return Promise.all(response)
+        return await Promise.all(response)
 }
 
 export const get = async (

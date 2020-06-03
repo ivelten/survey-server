@@ -12,7 +12,8 @@ const questionsRouter = express.Router()
 questionsRouter.get('/', isUserAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
         const page = parseInt(req.query.page as string, 10)
-        const response = await getAll(page, getQuestions, mapQuestionToQuestionResponse)
+        const formId = parseInt(req.query.formId as string, 10)
+        const response = await getAll(page, formId, getQuestions, mapQuestionToQuestionResponse)
         sendResponseModel(response, res)
     })
 })

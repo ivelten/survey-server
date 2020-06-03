@@ -91,6 +91,7 @@ interface IChoiceResponseModel {
 
 interface IQuestionResponseModel {
     id: number
+    formId: number
     description: string
     choices: IChoiceResponseModel[]
 }
