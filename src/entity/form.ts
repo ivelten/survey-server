@@ -13,7 +13,7 @@ export class Form {
     @Column({ type: 'smallint' })
     version: number
 
-    @Column({ length: 100 })
+    @Column({ length: 200 })
     description: string
 
     @Column()

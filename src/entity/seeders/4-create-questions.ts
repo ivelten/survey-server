@@ -9,7 +9,17 @@ export class CreateQuestions implements Seeder {
             {
                 id: 1,
                 formId: 1,
-                description: 'Quantas vezes ao dia você bebe água?'
+                description: 'Qual o percentual ideal da intensidade do álcool gel usado para higienização?'
+            },
+            {
+                id: 2,
+                formId: 1,
+                description: 'Quantos metros de distância são considerados o ideal para o isolamento social?'
+            },
+            {
+                id: 3,
+                formId: 1,
+                description: 'Dentre os objetos abaixo, quais são considerados seguros para compartilhar com outras pessoas durante a crise?'
             }
         ])
     }

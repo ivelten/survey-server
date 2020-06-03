@@ -14,7 +14,7 @@ export class User {
     @Column({ length: 50 })
     lastName: string
     
-    @Column({ length: 100 })
+    @Column({ length: 200 })
     @Unique(['userName'])
     userName: string
 

@@ -6,7 +6,7 @@ export class Recommendation {
     @PrimaryGeneratedColumn()
     id: number
     
-    @Column({ length: 100 })
+    @Column({ length: 200 })
     description: string
 
     @Column()
