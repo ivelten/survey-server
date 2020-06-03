@@ -28,7 +28,7 @@ formsRouter.get('/:id', isUserAuthorized, async (req: Request, res: Response) =>
 formsRouter.post('/', isAnalystAuthorized, async (req: Request, res: Response) => {
     processRequest(res, async () => {
         const user = await getUser(getUserNameFromAuthHeader(req))
-        const response = await create(req.body, user, validateCreateFormRequestModel, mapCreateFormRequestToForm, saveForm, mapFormToFormResponse)
+        const response = await create(req.body, user.id, validateCreateFormRequestModel, mapCreateFormRequestToForm, saveForm, mapFormToFormResponse)
         sendResponseModel(response, res, 201)
     })
 })

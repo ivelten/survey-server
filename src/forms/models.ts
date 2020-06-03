@@ -6,10 +6,11 @@ interface ICreateFormRequestModel {
 }
 
 class CreateFormRequestModel implements ICreateFormRequestModel {
-    constructor(model: ICreateFormRequestModel) {
-        if (model) {
+    constructor(model: ICreateFormRequestModel, userId: number) {
+        if (model && userId) {
             this.version = model.version
             this.description = model.description
+            this.userId = userId
         }
     }
 
@@ -22,6 +23,8 @@ class CreateFormRequestModel implements ICreateFormRequestModel {
     @IsString()
     @MaxLength(100)
     description: string
+
+    userId: number
 }
 
 

@@ -17,6 +17,7 @@ export function IsUserNameAlreadyInUse(validationOptions?: ValidationOptions): P
             name: 'isUserNameAlreadyInUse',
             validator: {
                 async validate(value: any, _validationArguments?: ValidationArguments) {
+                    if (typeof(value) !== 'string') return true
                     if (await getConnection().getRepository(User).findOne({ userName: value })) return false
                     return true
                 }
@@ -37,6 +38,7 @@ export function IsUserEmailAlreadyInUse(validationOptions?: ValidationOptions): 
             name: 'isUserEmailAlreadyInUse',
             validator: {
                 async validate(value: any, _validationArguments?: ValidationArguments) {
+                    if (typeof(value) !== 'string') return true
                     if (await getConnection().getRepository(User).findOne({ email: value }))
                         return false
                     return true

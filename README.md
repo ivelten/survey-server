@@ -29,6 +29,7 @@ Ele levanta um servidor RESTful para atender um aplicativo de questionário Mobi
 4. `GET /forms`
 5. `GET /forms/:id`
 6. `POST /forms`
-7. `GET /questions`
+7. `GET /questions` (query string opcional: `formId`)
 8. `GET /questions/:id`
 9. `POST /questions`
+10. `POST /questions/answer`

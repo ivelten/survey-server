@@ -2,17 +2,16 @@ import { ICreateFormRequestModel, IFormResponseModel } from './models'
 import { ValidationError } from 'class-validator'
 import { Form } from '../entity/form'
 import { ResponseModel, makeResponseModel } from '../models'
-import { User } from '../entity/user'
 
 export const create = async (
     request: ICreateFormRequestModel,
-    user: User,
-    validateRequest: (request: ICreateFormRequestModel) => Promise<ValidationError[]>,
-    mapRequestToForm: (req: ICreateFormRequestModel, user: User) => Promise<Form>,
+    userId: number,
+    validateRequest: (request: ICreateFormRequestModel, userId: number) => Promise<ValidationError[]>,
+    mapRequestToForm: (req: ICreateFormRequestModel, userId: number) => Promise<Form>,
     saveForm: (form: Form) => Promise<Form>,
     mapFormToResponse: (form: Form) => Promise<IFormResponseModel>): Promise<ResponseModel<IFormResponseModel>> => {
-        return makeResponseModel(await validateRequest(request), async () => {
-            var form = await mapRequestToForm(request, user)
+        return makeResponseModel(await validateRequest(request, userId), async () => {
+            var form = await mapRequestToForm(request, userId)
             form = await saveForm(form)
             return await mapFormToResponse(form)
         })
@@ -24,7 +23,7 @@ export const getAll = async (
     mapFormToResponse: (form: Form) => Promise<IFormResponseModel>): Promise<IFormResponseModel[]> => {
         const forms = await getForms(page)
         const response = forms?.map(async (form) => await mapFormToResponse(form))
-        return Promise.all(response)
+        return await Promise.all(response)
 }
 
 export const get = async (

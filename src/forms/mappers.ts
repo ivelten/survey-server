@@ -1,13 +1,12 @@
 import { CreateFormRequestModel, IFormResponseModel } from './models'
 import { Form } from '../entity/form'
-import { User } from '../entity/user'
 
 export const mapCreateFormRequestToForm = async (
     request: CreateFormRequestModel,
-    user: User): Promise<Form> => {
+    userId: number): Promise<Form> => {
     const form = new Form()
     form.creationDate = new Date()
-    form.user = user
+    form.userId = userId
     form.version = request.version
     form.description = request.description
     return form
