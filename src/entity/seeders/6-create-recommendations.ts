@@ -9,12 +9,17 @@ export class CreateQuestions implements Seeder {
             {
                 id: 1,
                 choiceId: 1,
-                description: 'Deixe uma garrafa de água sempre com você no trabalho.'
+                description: 'Este percentual auxilia a higienizar, mas faz com que o álcool evapore rápido e a camada de proteção dura pouco tempo.'
             },
             {
                 id: 2,
-                choiceId: 1,
-                description: 'Configure um alarme para te lembrar de beber água pelo menos 3 vezes por dia.'
+                choiceId: 3,
+                description: 'Este percentual permite a camada de álcool não evaporar tão cedo, porém é considerado de baixa eficiência para a higienização.'
+            },
+            {
+                id: 3,
+                choiceId: 4,
+                description: 'Este percentual permite a camada de álcool não evaporar tão cedo, porém é considerado de baixa eficiência para a higienização.'
             }
         ])
     }

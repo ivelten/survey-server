@@ -48,6 +48,45 @@ export class CreateUsers implements Seeder {
                 isActive: true,
                 weigth: 96,
                 height: 190
+            },
+            {
+                id: 4,
+                firstName: 'Pedro',
+                lastName: 'Silva',
+                userName: 'pedro.silva',
+                email: 'pedro.silva@gmail.com',
+                passwordHash,
+                roleId: USER_ROLE,
+                birthDate: new Date(1991, 1, 9),
+                isActive: true,
+                weigth: 74,
+                height: 176
+            },
+            {
+                id: 5,
+                firstName: 'Josefino',
+                lastName: 'Silva',
+                userName: 'josefino.silva',
+                email: 'josefino.silva@gmail.com',
+                passwordHash,
+                roleId: USER_ROLE,
+                birthDate: new Date(1984, 12, 21),
+                isActive: true,
+                weigth: 79,
+                height: 184
+            },
+            {
+                id: 6,
+                firstName: 'Fernanda',
+                lastName: 'Silva',
+                userName: 'fernanda.silva',
+                email: 'fernanda.silva@gmail.com',
+                passwordHash,
+                roleId: USER_ROLE,
+                birthDate: new Date(1992, 7, 30),
+                isActive: true,
+                weigth: 69,
+                height: 168
             }
         ])
     }
