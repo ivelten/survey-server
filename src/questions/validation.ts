@@ -77,7 +77,7 @@ export function QuestionOfChoiceIdIsNotAnswered(validationOptions?: ValidationOp
                                                         .leftJoinAndSelect("c.answers", "a")
                                                         .leftJoinAndSelect("c.question", "q")
                                                         .andWhere("q.id = :questionId", { questionId: choice.questionId })
-                                                        .andWhere("a.user_id = :userId", { userId: model.userId })
+                                                        .andWhere("a.userId = :userId", { userId: model.userId })
                                                         .getCount()
                     if (answerCount > 0) return false
                     return true

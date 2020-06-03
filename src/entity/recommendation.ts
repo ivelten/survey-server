@@ -9,10 +9,9 @@ export class Recommendation {
     @Column({ length: 100 })
     description: string
 
-    @Column({ name: 'choice_id' })
+    @Column()
     choiceId: number
 
     @ManyToOne(_ => Choice, c => c.recommendations)
-    @JoinColumn({ name: 'choice_id', referencedColumnName: 'id' })
     choice: Choice
 }

@@ -14,11 +14,10 @@ export class Choice {
     @Column({ type: 'tinyint' })
     weight: number
 
-    @Column({ name: 'question_id' })
+    @Column()
     questionId: number
 
     @ManyToOne(_ => Question, q => q.choices)
-    @JoinColumn({ name: 'question_id', referencedColumnName: 'id' })
     question: Question
 
     @OneToMany(_ => Answer, a => a.choice)
