@@ -10,17 +10,15 @@ export class Answer {
     @Column({ type: 'timestamp' })
     answerDate: Date
 
-    @Column({ name: 'choice_id' })
+    @Column()
     choiceId: number
 
-    @Column({ name: 'user_id' })
+    @Column()
     userId: number
 
     @ManyToOne(_ => Choice, c => c.answers)
-    @JoinColumn({ name: 'choice_id', referencedColumnName: 'id' })
     choice: Choice
 
     @ManyToOne(_ => User, u => u.answers)
-    @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
     user: User
 }

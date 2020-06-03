@@ -23,13 +23,14 @@ Ele levanta um servidor RESTful para atender um aplicativo de questionário Mobi
 
 ## Endpoints prontos até o momento
 
-1. `GET /users`
+1. `GET /users` (query string opcional: `page`)
 2. `GET /users/:userName`
 3. `POST /users`
-4. `GET /forms`
+4. `GET /forms` (query string opcional: `page`)
 5. `GET /forms/:id`
 6. `POST /forms`
-7. `GET /questions` (query string opcional: `formId`)
+7. `GET /questions` (query strings opcionais: `formId` e `page`)
 8. `GET /questions/:id`
 9. `POST /questions`
 10. `POST /questions/answer`
+11. `GET /reports` (query string opcional: `page`)

@@ -16,11 +16,10 @@ export class Form {
     @Column({ length: 100 })
     description: string
 
-    @Column({ name: 'user_id' })
+    @Column()
     userId: number
 
     @ManyToOne(_ => User, u => u.forms)
-    @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
     user: User
 
     @OneToMany(_ => Question, q => q.form)

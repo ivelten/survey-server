@@ -27,8 +27,6 @@ class CreateFormRequestModel implements ICreateFormRequestModel {
     userId: number
 }
 
-
-
 interface IFormResponseModel {
     id: number
     creationDate: Date
@@ -37,4 +35,8 @@ interface IFormResponseModel {
     description: string
 }
 
-export { ICreateFormRequestModel, CreateFormRequestModel, IFormResponseModel }
+export { 
+    ICreateFormRequestModel,
+    CreateFormRequestModel,
+    IFormResponseModel
+}

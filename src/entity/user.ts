@@ -8,13 +8,13 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number
     
-    @Column({ length: 50, name: 'first_name' })
+    @Column({ length: 50 })
     firstName: string
 
-    @Column({ length: 50, name: 'last_name' })
+    @Column({ length: 50 })
     lastName: string
     
-    @Column({ length: 100, name: 'user_name' })
+    @Column({ length: 100 })
     @Unique(['userName'])
     userName: string
 
@@ -22,10 +22,10 @@ export class User {
     @Unique(['email'])
     email: string
     
-    @Column({ length: 60, name: 'password_hash' })
+    @Column({ length: 60 })
     passwordHash: string
 
-    @Column({ type: 'date', name: 'birth_date' })
+    @Column({ type: 'date' })
     birthDate: Date
 
     @Column({ type: 'smallint' })
@@ -34,14 +34,13 @@ export class User {
     @Column({ type: 'smallint' })
     weigth: number
 
-    @Column({ name: 'is_active' })
+    @Column()
     isActive: boolean
 
-    @Column({ name: 'role_id' })
+    @Column()
     roleId: number
 
     @ManyToOne(_ => Role, r => r.users)
-    @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
     role: Role
 
     @OneToMany(_ => Form, f => f.user)

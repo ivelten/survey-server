@@ -6,6 +6,7 @@ import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity
 import { Form } from './entity/form'
 import { Question } from './entity/question'
 import { Answer } from './entity/answer'
+import { FormReport } from './entity/form-report'
 
 const skip = (page: number): number => {
     if (page) {
@@ -77,6 +78,10 @@ export const getQuestions = async (page: number, formId: number): Promise<Questi
     if (formId && result.length == 0) return null
     
     return result
+}
+
+export const getFormReports = async (page: number): Promise<FormReport[]> => {
+    return await getConnection().getRepository(FormReport).find({ take: PAGE_SIZE, skip: skip(page) })
 }
 
 export const insertInto = async <T>(

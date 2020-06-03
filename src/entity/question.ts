@@ -10,11 +10,10 @@ export class Question {
     @Column({ length: 100 })
     description: string
 
-    @Column({ name: 'form_id' })
+    @Column()
     formId: number
 
     @ManyToOne(_ => Form, f => f.questions)
-    @JoinColumn({ name: 'form_id', referencedColumnName: 'id' })
     form: Form
 
     @OneToMany(_ => Choice, c => c.question)
