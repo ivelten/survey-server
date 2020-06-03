@@ -5,6 +5,7 @@ import { PAGE_SIZE, SALT_ROUNDS } from './env'
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
 import { Form } from './entity/form'
 import { Question } from './entity/question'
+import { Answer } from './entity/answer'
 
 const skip = (page: number): number => {
     if (page) {
@@ -53,6 +54,10 @@ export const saveQuestion = async (question: Question): Promise<Question> => {
 
 export const saveForm = async (form: Form): Promise<Form> => {
     return await getConnection().getRepository(Form).save(form)
+}
+
+export const saveAnswer = async (answer: Answer): Promise<Answer> => {
+    return await getConnection().getRepository(Answer).save(answer)
 }
 
 export const getQuestions = async (page: number, formId: number): Promise<Question[]> => {

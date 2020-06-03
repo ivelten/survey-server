@@ -1,7 +1,9 @@
-import { CreateQuestionRequestModel, IQuestionResponseModel } from './models'
+import { CreateQuestionRequestModel, IQuestionResponseModel, AnswerQuestionRequestModel, IAnswerQuestionResponseModel } from './models'
 import { Question } from '../entity/question'
 import { Choice } from '../entity/choice'
 import { Recommendation } from '../entity/recommendation'
+import { Answer } from '../entity/answer'
+import { User } from '../entity/user'
 
 export const mapCreateQuestionRequestToQuestion = async (
     request: CreateQuestionRequestModel): Promise<Question> => {
@@ -43,5 +45,27 @@ export const mapQuestionToQuestionResponse = async (
                 }
             })
         }
+    }
+}
+
+export const mapAnswerQuestionRequestToAnswer = async (
+    request: AnswerQuestionRequestModel,
+    userId: number): Promise<Answer> => {
+        const answer = new Answer()
+        answer.choiceId = request.choiceId
+        answer.answerDate = new Date()
+        answer.userId = userId
+        return answer
+}
+
+export const mapAnswerToQuestionResponse = async (
+    answer: Answer): Promise<IAnswerQuestionResponseModel> => {
+        if (answer) {
+            return {
+                id: answer.id,
+                userId: answer.userId,
+                choiceId: answer.choiceId,
+                answerDate: answer.answerDate
+            }
     }
 }

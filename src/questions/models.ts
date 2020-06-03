@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsString, MaxLength, IsArray, ValidateNested, IsInt, Min } from 'class-validator'
-import { IsValidFormId } from './validation'
+import { IsNotEmpty, IsString, MaxLength, IsArray, ValidateNested, IsInt, Min, IsIn } from 'class-validator'
+import { IsValidFormId, IsValidChoiceId, QuestionOfChoiceIdIsNotAnswered } from './validation'
 
 interface ICreateQuestionRequestModel {
     formId: number
@@ -96,6 +96,34 @@ interface IQuestionResponseModel {
     choices: IChoiceResponseModel[]
 }
 
+interface IAnswerQuestionRequestModel {
+    choiceId: number
+}
+
+class AnswerQuestionRequestModel implements IAnswerQuestionRequestModel {
+    constructor(model: IAnswerQuestionRequestModel, userId: number) {
+        if (model && userId) {
+            this.choiceId = model.choiceId
+            this.userId = userId
+        }
+    }
+
+    @IsNotEmpty()
+    @IsInt()
+    @IsValidChoiceId()
+    @QuestionOfChoiceIdIsNotAnswered()
+    choiceId: number
+
+    userId: number
+}
+
+interface IAnswerQuestionResponseModel {
+    id: number
+    choiceId: number
+    userId: number
+    answerDate: Date
+}
+
 export { 
     ICreateQuestionRequestModel,
     CreateQuestionRequestModel,
@@ -105,5 +133,8 @@ export {
     RecommendationRequestModel,
     IRecommendationResponseModel,
     IChoiceResponseModel,
-    IQuestionResponseModel
+    IQuestionResponseModel,
+    IAnswerQuestionRequestModel,
+    AnswerQuestionRequestModel,
+    IAnswerQuestionResponseModel
 }
